@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $filleable = [
+    protected $fillable = [
         'date',
-        'startTime',
+        'start_time',
         'email'
     ];
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
 
 class BookController extends Controller
 {
@@ -13,18 +14,19 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Book::all(), 200);
     }
 
+    /*
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /*public function create()
     {
         //
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +36,13 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'date'      => 'required',
+            'start_time' => 'required',
+            'email'     => 'required'
+        ]);
+
+        return response()->json(Book::create($request->all()), 200);
     }
 
     /**
@@ -45,19 +53,20 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Book::findOrFail($id), 200);
     }
 
+    /*
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    /*public function edit($id)
     {
         //
-    }
+    }*/
 
     /**
      * Update the specified resource in storage.
@@ -68,7 +77,13 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'date'      => 'required',
+            'start_time' => 'required',
+            'email'     => 'required'
+        ]);
+
+        return response()->json(Book::findOrFail($id)->update($request->all()), 200);
     }
 
     /**
@@ -79,6 +94,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::faidOrFail($id);
+        return response()->json($book->delete(), 200);
     }
 }
